@@ -1,0 +1,7 @@
+{
+  "name": "emqu-frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
