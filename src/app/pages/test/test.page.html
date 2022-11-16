@@ -1,9 +1,64 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>test</ion-title>
+    <ion-title>Tests</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button shape="round" routerLink="create">
+          <ion-icon slot="start" name="add"></ion-icon>
+          Add New
+        </ion-button>
+      </ion-col>
+    </ion-row>
 
+    <ion-row>
+      <ion-col>
+        <ngx-datatable
+          class="material"
+          [rows]="testRows"
+          [columnMode]="'force'">
+          <ngx-datatable-column prop="name" name="Name">
+            <ng-template ngx-datatable-header-template>
+              Name
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row.equipment.name }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column prop="ip" name="IP">
+            <ng-template ngx-datatable-header-template>
+              IP
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row.equipment.ip }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column prop="average_latency" name="Avg. Latency (ms)"></ngx-datatable-column>
+          <ngx-datatable-column prop="successful" name="Successful">
+            <ng-template ngx-datatable-header-template>
+              Successful
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <ion-icon
+                [md]="row.successful ? 'checkmark-sharp' : 'close-sharp'"
+                [ios]="row.successful ? 'checkmark-outline' : 'close-outline'"
+                [color]="row.successful ? 'success' : 'danger'"></ion-icon>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column prop="id" name="id" [resizeable]="false">
+            <ng-template ngx-datatable-header-template>
+              Action
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <ion-button size="small" color="light" (click)="detail(row)">Details</ion-button>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

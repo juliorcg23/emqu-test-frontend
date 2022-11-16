@@ -1,9 +1,23 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>dashboard</ion-title>
+    <ion-title>Dashboard</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <app-equipment-comparison
+          [haveErrors]="statistics?.haveErrors"
+          [doNotHaveErrors]="statistics?.doNotHaveErrors">
+        </app-equipment-comparison>
+      </ion-col>
 
+      <ion-col>
+        <app-statistics
+          [statistics]="statistics?.equipmentStatistics"></app-statistics>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

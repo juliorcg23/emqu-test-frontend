@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create New Test</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <form [formGroup]="testForm">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3">
+              <ion-item>
+                <ion-label position="stacked">Device</ion-label>
+                <ion-select
+                  interface="popover"
+                  placeholder="Device"
+                  (ionChange)="setSelectedDevice($event)"
+                  formControlName="device">
+                  <ion-select-option 
+                    *ngFor="let device of deviceOptions"
+                    [value]="device">
+                    {{ device.name }}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+            <ion-col size="3">
+              <ion-item>
+                <ion-label position="floating">Device IP</ion-label>
+                <ion-input formControlName="ip" readonly></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="3">
+              <ion-item>
+                <ion-label position="floating">Attempts</ion-label>
+                <ion-input type="number" formControlName="attempts"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="3">
+              <ion-button
+                shape="round"
+                (click)="runTest()"
+                [disabled]="testRunning">
+                <ion-icon slot="start" [md]="'play-sharp'" [ios]="'play-outline'"></ion-icon>
+                Run
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content *ngIf="!testRunning && !testDone && !testFailed">
+      <ion-text>Results will be shown here</ion-text>
+    </ion-card-content>
+    <ion-card-content *ngIf="testRunning">
+      <ion-text>Running test...</ion-text>
+      <ion-progress-bar type="indeterminate"></ion-progress-bar>
+    </ion-card-content>
+    <ion-card-content *ngIf="!testRunning && testResult">
+      <ion-item>
+        <ion-icon
+          class="test-done"
+          [md]="testDone && !testFailed ? 'checkmark-sharp' : 'close-sharp'"
+          [ios]="testDone && !testFailed ? 'checkmark-outline' : 'close-outline'"
+          [color]="testDone && !testFailed ? 'success' : 'danger'"></ion-icon>
+        <h2>{{ testDone && !testFailed ? 'Test done' : 'Test failed'}}</h2>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <h3>Average Latency</h3>
+          <p>{{ testResult.average_latency }}ms</p>
+        </ion-label>
+
+        <ion-label>
+          <h3>Maximum Latency</h3>
+          <p>{{ testResult.maximum_latency }}ms</p>
+        </ion-label>
+
+        <ion-label>
+          <h3>Minimum Latency</h3>
+          <p>{{ testResult.minimum_latency }}ms</p>
+        </ion-label>
+
+        <ion-label>
+          <h3>Attemps Done</h3>
+          <p>{{ testResult.attempts }}</p>
+        </ion-label>
+
+        <ion-label>
+          <h3>Failed Attemps</h3>
+          <p>{{ testResult.failed_attempts }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

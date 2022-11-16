@@ -1,0 +1,26 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Success vs. Failed</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list>
+      <ion-item>
+        <ion-icon
+          md="checkmark-sharp"
+          ios="checkmark-outline"
+          color="success"
+          slot="start"></ion-icon>
+        <ion-label>{{ doNotHaveErrors?.length }}</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon
+          md="close-sharp"
+          ios="close-outline"
+          color="danger"
+          slot="start"></ion-icon>
+        <ion-label>{{ haveErrors?.length }}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

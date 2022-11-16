@@ -1,0 +1,34 @@
+<ion-grid>
+  <ion-row>
+    <ion-col sizeXs="12" sizeSm="12" sizeMd="4">
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <ion-card>
+          <ion-card-header style="text-align: center;">
+            <ion-card-title>Login</ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <ion-list>
+              <ion-item>
+                <ion-label position="floating">Email</ion-label>
+                <ion-input type="email" formControlName="email" required></ion-input>
+                <ion-note slot="error" *ngIf="loginForm.controls.email.dirty || loginForm.controls.email.touched">
+                  Email is required
+                </ion-note>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">Password</ion-label>
+                <ion-input type="password" formControlName="password" required></ion-input>
+                <ion-note slot="error" *ngIf="loginForm.controls.password.dirty || loginForm.controls.password.touched">
+                  Password is required
+                </ion-note>
+              </ion-item>
+            </ion-list>
+
+            <ion-button type="submit" size="block" shape="round">Login</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </form>
+    </ion-col>
+  </ion-row>
+</ion-grid>

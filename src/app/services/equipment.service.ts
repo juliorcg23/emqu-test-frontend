@@ -15,16 +15,14 @@ export class EquipmentService {
   async getEquipmentList() {
     const { data: equipmentList } =
       await this.httpService
-        .get<EquipmentResponse>('equipment')
-        .toPromise<EquipmentResponse>();
+      .get<EquipmentResponse>('equipment');
 
     return equipmentList;
   }
 
   async createEquipment(equipmentData) {
     const { data } =
-      await this.httpService
-      .post<EquipmentResponse>('equipment', equipmentData)
-      .toPromise<EquipmentResponse>();
+      await await this.httpService
+      .post<EquipmentResponse>('equipment', equipmentData);
   }
 }
