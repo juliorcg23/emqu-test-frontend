@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Test Detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ <ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Device</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-item>
+            <ion-label>
+              <h3>Device Name</h3>
+              <p>{{ test.equipment.name }}</p>
+            </ion-label>
+
+            <ion-label>
+              <h3>Device IP</h3>
+              <p>{{ test.equipment.ip }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Test</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-item>
+            <ion-icon
+              class="test-done"
+              [md]="test.successful ? 'checkmark-sharp' : 'close-sharp'"
+              [ios]="test.successful ? 'checkmark-outline' : 'close-outline'"
+              [color]="test.successful ? 'success' : 'danger'"></ion-icon>
+            <h2>{{ test.successful ? 'Test done' : 'Test failed'}}</h2>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <h3>Average Latency</h3>
+              <p>{{ test.average_latency }}ms</p>
+            </ion-label>
+    
+            <ion-label>
+              <h3>Maximum Latency</h3>
+              <p>{{ test.maximum_latency }}ms</p>
+            </ion-label>
+    
+            <ion-label>
+              <h3>Minimum Latency</h3>
+              <p>{{ test.minimum_latency }}ms</p>
+            </ion-label>
+    
+            <ion-label>
+              <h3>Attemps Done</h3>
+              <p>{{ test.attempts }}</p>
+            </ion-label>
+    
+            <ion-label>
+              <h3>Failed Attemps</h3>
+              <p>{{ test.failed_attempts }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-content>

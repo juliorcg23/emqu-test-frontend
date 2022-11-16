@@ -15,7 +15,6 @@ export class TestPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getEquipmentList();
   }
 
   async getEquipmentList() {
@@ -24,5 +23,9 @@ export class TestPage implements OnInit {
 
 
   detail(row) {}
+
+  ionViewDidEnter() {
+    this.getEquipmentList();
+  }
 
 }

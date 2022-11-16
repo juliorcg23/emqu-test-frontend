@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { EquipmentResponse } from '../dtos/equipment.dto';
+import { Equipment, EquipmentDetailResponse, EquipmentResponse } from '../dtos/equipment.dto';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -22,7 +21,31 @@ export class EquipmentService {
 
   async createEquipment(equipmentData) {
     const { data } =
-      await await this.httpService
-      .post<EquipmentResponse>('equipment', equipmentData);
+      await this.httpService
+      .post<EquipmentDetailResponse>('equipment', equipmentData);
+
+    return data;
+  }
+
+  async getEquipment(id: string): Promise<Equipment> {
+    const { data } =
+      await this.httpService
+      .get<EquipmentDetailResponse>(`equipment/${id}`);
+
+    return data;
+  }
+
+  async updateEquipment(id, equipmentData) {
+    const { data } =
+      await this.httpService
+      .put<EquipmentDetailResponse>(`equipment/${id}`, equipmentData);
+
+    return data;
+  }
+
+  async deleteEquipment(id) {
+    const { data } = await this.httpService.delete<EquipmentDetailResponse>(`equipment/${id}`);
+
+    return data;
   }
 }

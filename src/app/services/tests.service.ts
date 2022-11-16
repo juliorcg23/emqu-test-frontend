@@ -21,9 +21,17 @@ export class TestsService {
 
   async createTest(testData: Test): Promise<CreateTestResponse> {
     const response =
-      await await this.httpService
+      await this.httpService
       .post<CreateTestResponse>('test', testData);
 
     return response;
+  }
+
+  async getTest(id: string): Promise<Test> {
+    const { data } =
+      await this.httpService
+      .get<CreateTestResponse>(`test/${id}`);
+
+    return data;
   }
 }

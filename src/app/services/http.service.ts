@@ -40,6 +40,27 @@ export class HttpService {
     return this.http.post<T>(`${this.apiBaseUrl}${uri}`, data, options).toPromise();
   }
 
+  async put<T>(uri: string, data: any = null) {
+    const options = {
+      headers: await this.buildHeaders(),
+    };
+
+    return this.http.put<T>(`${this.apiBaseUrl}${uri}`, data, options).toPromise();
+  }
+
+  async delete<T>(uri: string, data: any = null) {
+    const options = {
+      params: null,
+      headers: await this.buildHeaders(),
+    };
+
+    if (data !== null) {
+      options.params = data;
+    }
+
+    return this.http.delete<T>(`${this.apiBaseUrl}${uri}`, options).toPromise();
+  }
+
   private async buildHeaders(): Promise<Record<string, any>> {
     const accessToken = await this.storageService.getData('accessToken');
     const headers: any = {};

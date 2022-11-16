@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Equipment Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="equipmentForm" (ngSubmit)="submitEquipment()" novalidate>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label position="floating">Name</ion-label>
+                  <ion-input type="text" id="name" formControlName="name" required></ion-input>
+                  <ion-note slot="error" *ngIf="formControl.name.dirty || formControl.name.touched">
+                    Name is required.
+                  </ion-note>
+                </ion-item>
+              </ion-col>
+  
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label position="floating">IPV4 Address</ion-label>
+                  <ion-input type="text" id="name" formControlName="ip" required></ion-input>
+                  <ion-note slot="error" *ngIf="formControl.ip.dirty || formControl.ip.touched">
+                    Invalid IP Address.
+                  </ion-note>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-button shape="round" type="submit" [disabled]="equipmentForm.invalid">
+                  <ion-icon slot="start" [ios]="'save-outline'" [md]="'save-sharp'"></ion-icon>
+                  Save
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

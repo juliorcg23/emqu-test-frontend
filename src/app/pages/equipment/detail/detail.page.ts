@@ -1,23 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { LoadingController, NavController, ToastController } from '@ionic/angular';
+import { Equipment } from 'src/app/dtos/equipment.dto';
 import { EquipmentService } from 'src/app/services/equipment.service';
 
 @Component({
-  selector: 'app-create',
-  templateUrl: './create.page.html',
-  styleUrls: ['./create.page.scss'],
+  selector: 'app-detail',
+  templateUrl: './detail.page.html',
+  styleUrls: ['./detail.page.scss'],
 })
-export class CreatePage implements OnInit {
+export class DetailPage implements OnInit {
 
+  equipment: Equipment;
   equipmentForm: FormGroup;
 
   constructor(
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private equipmentService: EquipmentService,
     private loadingController: LoadingController,
-    private toastController: ToastController,
+    private equipmentService: EquipmentService,
     private navController: NavController,
+    private toastController: ToastController,
   ) {
     this.equipmentForm = this.formBuilder.group({
       name: [
@@ -25,17 +29,16 @@ export class CreatePage implements OnInit {
         [
           Validators.required,
           Validators.maxLength(200),
-        ]
+        ],
       ],
       ip: [
         '',
         [
           Validators.required,
-          Validators
-            // eslint-disable-next-line max-len
-            .pattern(/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/)
+          // eslint-disable-next-line max-len
+          Validators.pattern(/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/)
         ]
-      ],
+      ]
     });
   }
 
@@ -44,6 +47,11 @@ export class CreatePage implements OnInit {
   }
 
   ngOnInit() {
+    if (this.route.snapshot.data.equipment) {
+      this.equipment = this.route.snapshot.data.equipment;
+      this.equipmentForm.get('name').setValue(this.equipment.name);
+      this.equipmentForm.get('ip').setValue(this.equipment.ip);
+    }
   }
 
   async submitEquipment() {
@@ -54,7 +62,7 @@ export class CreatePage implements OnInit {
     try {
       loadingIndicator.present();
       this.equipmentForm.markAsTouched();
-      await this.equipmentService.createEquipment(this.equipmentForm.value);
+      await this.equipmentService.updateEquipment(this.equipment.id, this.equipmentForm.value);
       loadingIndicator.dismiss();
       this.navController.navigateBack('app/equipment');
     }

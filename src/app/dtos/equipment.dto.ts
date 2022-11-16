@@ -16,6 +16,10 @@ export interface EquipmentResponse extends BaseResponse {
   data: Equipment[];
 };
 
+export interface EquipmentDetailResponse extends BaseResponse {
+  data: Equipment;
+};
+
 export interface CreateEquipmentResponse extends BaseResponse {
   data: Equipment;
 };
